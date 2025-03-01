@@ -24,5 +24,6 @@ urlpatterns = [
     path('',Competiciones.as_view(), name='Competicion'),
     path('vista/<int:idPrueb>/',views.vista, name='vista'),
     path("inicio/",views.inicio, name='inicio'),
+    path("login/",views.login_view, name='login'),
     
 ]

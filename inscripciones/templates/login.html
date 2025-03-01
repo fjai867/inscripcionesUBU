@@ -1,0 +1,21 @@
+{% extends "inicio.html" %}
+<!DOCTYPE html>
+{%block content %} 
+<html>
+<head>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/login.css' %}"> 
+    <title>Iniciar sesión</title>
+</head>
+<body>
+    <div class="login-container">
+    <h1>Iniciar sesión</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Iniciar sesión</button>
+    </form>
+    </div>
+</body>
+</html>
+{% endblock %}

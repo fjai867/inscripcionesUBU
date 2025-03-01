@@ -1,0 +1,60 @@
+body {
+    
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+}
+
+.login-container {
+    text-align: center;
+    margin: 0 auto;
+    height: 300px;
+    background-color: #f4f6f7;
+    padding: 20px;
+    border-radius: 19px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: 400px;
+}
+
+.login-container h1 {
+    
+    color: #1e88e5; /* Azul más oscuro para el título */
+    
+}
+
+.login-container label {
+    display: block;
+    margin-bottom: 5px;
+    color: #1565c0; /* Azul más oscuro para las etiquetas */
+}
+
+.login-container input[type="text"],
+.login-container input[type="password"] {
+    width: calc(60% - 12px);
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 2px solid #2980a8; /* Borde azul claro */
+    border-radius: 15px;
+}
+
+.login-container button {
+    width: 60%;
+    padding: 10px;
+    background-color: #4fc3f7; /* Azul claro para el botón */
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.login-container button:hover {
+    background-color: #2ae84d; /* verde fosforito al pasar el ratón */
+}
+
+.login-container .errorlist {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 10px;
+    color: red;
+    text-align: center;
+}
