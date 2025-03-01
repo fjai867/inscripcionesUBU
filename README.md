@@ -1,0 +1,2 @@
+# inscripcionesUBU
+Aplicación inscripciones remotas
