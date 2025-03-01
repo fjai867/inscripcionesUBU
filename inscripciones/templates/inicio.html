@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {% load static %}
+    <title>Inscripciones a Pruebas</title>
+    <link rel="stylesheet" href="{% static 'css/inicio.css' %}">
+</head>
+<body>
+    <header>
+        <img src="{% static 'images/logo.jpg' %}" alt="Logo" class="logo"> {# Reemplaza 'images/logo.png' con la ruta a tu logo #}
+        <nav>
+            <ul>
+                <li><a href="{% url 'Competicion' %}">Inicio</a></li>
+                <li><a href="#">Login</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <h1>Inscripciones a Pruebas</h1>
+        {% block content %}
+            
+        {% endblock %}
+    </main>
+
+    <footer>
+        <img src="{% static 'images/logo.jpg' %}" alt="Logo" class="logo"> {# Reemplaza 'images/logo.png' con la ruta a tu logo #}
+        <nav>
+            <ul>
+                <li><a href="https://atletismocamposdecastilla.com/aviso-legal/">Aviso Legal</a></li>
+                <li><a href="https://atletismocamposdecastilla.com/politica-de-privacidad/">Política de Privacidad</a></li>
+            </ul>
+        </nav>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,117 @@
+{% extends "inicio.html" %}
+<!DOCTYPE html>
+{%block content %} 
+<html lang="es">
+   
+<head>
+    {%load static%}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>formulario coompeticion</title>
+    <link rel="stylesheet" href="{% static 'css/vista2.css' %}"> 
+</head>
+<body>
+    
+    <div class="container">
+        <h1>{{ regCompeticion.nomPrueba }}</h1>
+        <h1>Fecha Limite: {{ regCompeticion.fechafin }}</h1>
+
+        <form method="post">
+         {% csrf_token %} 
+        <div class="row">
+            <div class="input-group">
+                <label for="nom">Nombre:</label>
+                {%if regCompeticion.nombre %}
+                    <input type="text" id="nom" name="nom" maxlength="50">
+                {%else%}
+                    <input type="text"  class="desabi" value="." disabled>
+                {% endif %} 
+            </div>
+            <div class="input-group">
+                <label for="ape1">Apellido1:</label>
+                {%if regCompeticion.apellido1 %}
+                <input type="text" id="ape1" name="ape1" maxlength="50">
+                {%else%}
+                <input  class="desabi" type="text" value="." disabled>
+                {% endif %}
+            </div>
+            <div class="input-group">
+                <label for="ape2">Apellido2:</label>
+                {%if regCompeticion.apellido2 %}
+                <input type="text" id="ape2" name="ape2" maxlength="50">
+                {%else%}
+                <input  class="desabi" type="text" value="." disabled>
+                {% endif %}
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-group">
+                <label for="ano">Año:(4 digitos)</label>
+                {%if regCompeticion.ano %}
+                <input type="text" id="ano" name="ano" maxlength="4">
+                {%else%}
+                <input  class="desabi" type="text" value="." disabled>
+                {% endif %} 
+            </div>
+            <div class="input-group">
+                <label for="cat">Categoría:</label>
+                {%if regCompeticion.categoria %}
+                <select name="cat" id="cat">
+                    <option value="1">sub-10</option>
+                    <option value="2">sub-12</option>
+                    <option value="3">sub-14</option>
+                    <option value="4">sub-16</option>
+                    <option value="5">sub-18</option>
+                    <option value="6">sub-20</option>
+                    <option value="7">sub-22</option>
+                    <option value="8">sub-14</option>
+
+                    <option value="9" selected>master</option>
+                  </select>
+                  {%else%}
+                    <input  class="desabi" type="text" id="cat" name="cat" value="." disabled>
+                  {% endif %} 
+                  
+            </div>
+            <div class="input-group">
+                <label for="clu">Club:</label>
+                {%if regCompeticion.club %}
+                <input type="text" id="clu" name="clu" maxlength="20" >
+                {%else%}
+                <input  class="desabi" type="text" value="." disabled>
+                {% endif %}
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-group">
+                <label for="pr1">Prueba1:</label>
+                {%if regCompeticion.prueba1 %}
+                <input type="text" id="pr1" name="pr1" maxlength="30">
+                {%else%}
+                <input  class="desabi" type="text" value="." disabled>
+                {% endif %}
+            </div>
+            <div class="input-group">
+                <label for="pr2">Prueba2:</label>
+                {%if regCompeticion.prueba2 %}
+                <input type="text" id="pr2" name="pr2" maxlength="30">
+                {%else%}
+                <input  class="desabi" type="text" value="." disabled>
+                {% endif %}
+            </div>
+            <div class="input-group">
+                <label for="pr3">Prueba3:</label>
+                {%if regCompeticion.prueba3 %}
+                <input type="text" id="pr3" name="pr3" maxlength="30" >
+                {%else%}
+                <input  class="desabi" type="text" value="." disabled>
+                {% endif %}
+            </div>
+        </div>
+            <button type="submit">Enviar</button>
+        </form>
+
+    </div>
+</body>
+</html>
+{% endblock %}

@@ -1,0 +1,59 @@
+ /* Estilos CSS básicos para la plantilla */
+ body {
+    font-family: sans-serif;
+    margin: 0;
+    padding: 0;
+}
+header {
+    background-color:rgb(0,138,219); /* Color de fondo del encabezado */
+    padding: 10px;
+    display: flex;
+    justify-content: space-between; /* Alinea el logo a la izquierda y el menú a la derecha */
+    align-items: center;
+    
+}
+.logo {
+    max-height: 80px; /* Ajusta la altura máxima del logo */
+    
+}
+nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+nav li {
+    margin-left: 20px;
+    color: beige;
+}
+main {
+    padding: 20px;
+}
+footer {
+    background-color:rgb(0,138,219); /* Color de fondo del pie de página */
+    padding: 20px;
+    display: flex;
+    justify-content: space-between; /* Alinea el logo a la izquierda y el menú a la derecha */
+    align-items: center;
+}
+footer nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    
+    
+}
+footer nav li {
+    margin-left: 20px;
+    
+
+}
+
+h1{
+ text-align: center;   
+}
+
+a{
+    color: beige; 
+}

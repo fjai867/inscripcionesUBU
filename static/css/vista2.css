@@ -1,0 +1,55 @@
+body {
+    font-family: sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #c5daf0;
+}
+
+.container {
+    
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.logo {
+    margin:auto;
+    max-width: 600px;
+    margin-bottom: 20px;
+    
+}
+
+.row {
+    display: flex; /* Usar flexbox para las filas */
+    justify-content: space-between; /* Espacio uniforme entre los input-groups */
+    margin-bottom: 10px; /* Espacio entre filas */
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column; /* Organizar label e input en columna */
+    width: 30%; /* Ancho de cada input-group */
+}
+
+label {
+    margin-bottom: 5px; /* Espacio entre label e input */
+}
+
+button {
+    background-color: #4206f4;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 15px;
+    cursor: pointer;
+}
+
+input { border-color:#cccccc; padding:8px; font-size:15px; border-width:4px; border-radius:7px; border-style:outset; background-color:#86d6d9; font-weight:bold;  }
+select { border-color:#cccccc; padding:8px; font-size:15px; border-width:4px; border-radius:7px; border-style:outset; background-color:#86d6d9; font-weight:bold;  }
+input:focus { outline:none; } 
+
+input.desabi { border-color:#060253; padding:8px; font-size:15px; border-width:4px; border-radius:7px; border-style:outset; background-color:#1b08c3; font-weight:bold;  }
+

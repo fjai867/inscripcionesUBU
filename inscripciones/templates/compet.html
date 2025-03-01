@@ -1,0 +1,39 @@
+{% extends "inicio.html" %}
+<!DOCTYPE html>
+{%block content %} 
+<html>
+<head>
+    {%load static%}
+    <link rel="stylesheet" href="{% static 'css/compet.css' %}"> 
+    <title>Lista de Competiciones</title>
+</head>
+<body>
+    <h1>Lista de Competiciones</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Nombre de la Prueba</th>
+                <th>Fecha limite</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% if object_list %}
+            {% for Competicion in object_list %}
+            <tr>
+                <td class="titulo-tabla">{{ Competicion.nomPrueba }}</td>
+                <td class="fecha-tabla">{{ Competicion.fechafin }}</td>
+                <td>
+                    <a href="{% url 'vista' Competicion.idPrueba %}">Ver Detalle</a>
+                </td>
+            </tr>
+            {% endfor %}
+            {%else%}
+                <h1>No hay competicionees pendientes</h1>
+            {% endif %}    
+        </tbody>
+    </table>
+</body>
+</html>
+{% endblock %}
