@@ -1,8 +1,14 @@
-from django.shortcuts import render, HttpResponse, redirect
+from django.shortcuts import render, HttpResponse, redirect,HttpResponseRedirect
 from incripApp.models import Competicion, Atleta
 from django.views.generic import ListView
 from django.contrib.auth import authenticate, login
+from django.urls import reverse_lazy
 from .forms import LoginForm
+from openpyxl import Workbook
+#importacion para que la vista solo se pueda entrar a traves de login
+from django.contrib.auth.mixins import LoginRequiredMixin
+from datetime import date
+
 
 
 def vista(request, idPrueb):
@@ -45,7 +51,12 @@ def inicio(request):
 class Competiciones(ListView):
     model = Competicion
     template_name = 'compet.html'  # Especifica el nombre del template HTML
-    context_object_name = 'object_list'  # Opcional: Cambia el nombre de la variable de contexto
+    
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        return queryset.filter(fechafin__gte=date.today())
+    
+    
 
 
 def login_view(request):
@@ -57,10 +68,65 @@ def login_view(request):
             user = authenticate(username=username, password=password)
             if user is not None:
                 login(request, user)
-                return redirect('inicio')  # Reemplaza con la URL deseada
+                 #envia a la lista de competicionees para exporta excel
+                return HttpResponseRedirect(reverse_lazy('generar_excel'))
             else:
                 form.add_error(None, 'Nombre de usuario o contraseña incorrectos')
     else:
         form = LoginForm()
     return render(request, 'login.html', {'form': form})
+
+
+class generar_excel(LoginRequiredMixin, ListView):
+    model = Competicion
+    template_name = 'generar.html'  # Especifica el nombre del template HTML
+    context_object_name = 'object_list'  # Opcional: Cambia el nombre de la variable
+    
+
+
+
+
+
+def exportar_excel(request, idPrueb):
+    
+
+    # Filtra los atletas por la competición
+    atletas = Atleta.objects.filter(competicion=idPrueb)
+
+    # obtenemos el registro idPureba de competicion
+    miRegi=Competicion.objects.get(idPrueba=idPrueb)
+
+    # Crea un nuevo libro de Excel y una hoja
+    wb = Workbook()
+    ws = wb.active
+
+     
+
+    # Escribe los encabezados de las columnas
+    encabezados = ['Nombre', 'Apellido 1', 'Apellido 2', 'Año', 'Categoría', 'Club', 'Prueba 1', 'Prueba 2', 'Prueba 3']
+    ws.append(encabezados)
+
+    # Escribe los datos de los atletas en las filas
+    for atleta in atletas:
+        fila = [
+            atleta.nom,
+            atleta.ape1,
+            atleta.ape2,
+            atleta.ano,
+            atleta.categoria,
+            atleta.club,
+            atleta.prueba1,
+            atleta.prueba2,
+            atleta.prueba3,
+        ]
+        ws.append(fila)
+
+    # Crea la respuesta HTTP con el archivo Excel
+    response = HttpResponse(content_type='application/ms-excel')
+    response['Content-Disposition'] = f'attachment; filename="atletas_{miRegi.nombre}.xlsx"'
+
+    # Guarda el libro de Excel en la respuesta
+    wb.save(response)
+
+    return response
     

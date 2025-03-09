@@ -23,9 +23,9 @@
             {% for Competicion in object_list %}
             <tr>
                 <td class="titulo-tabla">{{ Competicion.nomPrueba }}</td>
-                <td class="fecha-tabla">{{ Competicion.fechafin|date:"d/m/Y" }}</td>
+                <td class="fecha-tabla">{{ Competicion.fechafin|date:"d/m/Y"  }}</td>
                 <td>
-                    <a href="{% url 'vista' Competicion.idPrueba %}">Inscribirse</a>
+                    <a href="{% url 'exportar_excel' Competicion.idPrueba %}">Genera excel</a>
                 </td>
             </tr>
             {% endfor %}

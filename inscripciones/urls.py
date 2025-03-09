@@ -17,7 +17,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from . import views
-from .views import Competiciones
+from .views import Competiciones, generar_excel
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -25,5 +25,7 @@ urlpatterns = [
     path('vista/<int:idPrueb>/',views.vista, name='vista'),
     path("inicio/",views.inicio, name='inicio'),
     path("login/",views.login_view, name='login'),
+    path("generar_excel/",generar_excel.as_view(), name='generar_excel'),
+    path("exportar_excel/<int:idPrueb>/",views.exportar_excel, name='exportar_excel'),
     
 ]

@@ -14,7 +14,7 @@
     
     <div class="container">
         <h1>{{ regCompeticion.nomPrueba }}</h1>
-        <h1>Fecha Limite: {{ regCompeticion.fechafin }}</h1>
+        <h1>Cierre inscripciones: {{ regCompeticion.fechafin|date:"d/m/Y"}} -- {{regCompeticion.fechafin|date:"H:i:s" }}</h1>
 
         <form method="post">
          {% csrf_token %} 

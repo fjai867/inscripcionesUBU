@@ -48,8 +48,8 @@ button {
 }
 
 input { border-color:#cccccc; padding:8px; font-size:15px; border-width:4px; border-radius:7px; border-style:outset; background-color:#86d6d9; font-weight:bold;  }
-select { border-color:#cccccc; padding:8px; font-size:15px; border-width:4px; border-radius:7px; border-style:outset; background-color:#86d6d9; font-weight:bold;  }
+select { border-color:#494848; padding:8px; font-size:15px; border-width:4px; border-radius:7px; border-style:outset; background-color:#86d6d9; font-weight:bold;  }
 input:focus { outline:none; } 
 
-input.desabi { border-color:#060253; padding:8px; font-size:15px; border-width:4px; border-radius:7px; border-style:outset; background-color:#1b08c3; font-weight:bold;  }
+input.desabi { border-color:#100f0f92; padding:8px; font-size:15px; border-width:4px; border-radius:7px; border-style:outset; background-color:#bfbec3; font-weight:bold;  }
 
