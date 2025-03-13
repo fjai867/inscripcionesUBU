@@ -16,6 +16,7 @@
                 <th>Nombre de la Prueba</th>
                 <th>Fecha limite</th>
                 <th>Acciones</th>
+                <th>Descargar Pdf</th>
             </tr>
         </thead>
         <tbody>
@@ -27,6 +28,10 @@
                 <td>
                     <a href="{% url 'vista' Competicion.idPrueba %}">Inscribirse</a>
                 </td>
+                <td>
+                    <a href="{% url 'vistapdf' Competicion.idPrueba %}">Ver pruebas</a>
+                </td>
+
             </tr>
             {% endfor %}
             {%else%}

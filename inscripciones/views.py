@@ -1,5 +1,5 @@
-from django.shortcuts import render, HttpResponse, redirect,HttpResponseRedirect
-from incripApp.models import Competicion, Atleta
+from django.shortcuts import render, HttpResponse, redirect,HttpResponseRedirect,get_object_or_404
+from incripApp.models import Competicion, Atleta, Documento
 from django.views.generic import ListView
 from django.contrib.auth import authenticate, login
 from django.urls import reverse_lazy
@@ -26,12 +26,16 @@ def vista(request, idPrueb):
             ano=request.POST.get('ano')
             club=request.POST.get('club')
             categoria=request.POST.get('cat')
+            fechanac=request.POST.get('fechanac')
+            sexo=request.POST.get('sexo')
+            cescolar=request.POST.get('cescolar')
+
             pr1=request.POST.get('pr1')
             pr2=request.POST.get('pr2')
             pr3=request.POST.get('pr3')
             
             # Crea una instancia del modelo y guarda los datos
-            nuevo_registro = Atleta(competicion=miRegi,nom=nombre, ape1=ape1, ape2=ape2, ano=ano,categoria=categoria,club=club,prueba1=pr1,prueba2=pr2,prueba3=pr3)
+            nuevo_registro = Atleta(competicion=miRegi,nom=nombre, ape1=ape1, ape2=ape2, ano=ano,categoria=categoria,club=club,fechanac=fechanac,sexo=sexo,centroescolar=cescolar,prueba1=pr1,prueba2=pr2,prueba3=pr3)
             nuevo_registro.save()
 
             # Redirigir a una página de éxito o mostrar un mensaje
@@ -103,7 +107,9 @@ def exportar_excel(request, idPrueb):
      
 
     # Escribe los encabezados de las columnas
-    encabezados = ['Nombre', 'Apellido 1', 'Apellido 2', 'Año', 'Categoría', 'Club', 'Prueba 1', 'Prueba 2', 'Prueba 3']
+    encabezados = ['Nombre', 'Apellido1', 'Apellido2', 'Año', 'Categoría', 'Club',''
+    ''
+    'Fechanac','sexo','centro-escolar', 'Prueba 1', 'Prueba 2', 'Prueba 3']
     ws.append(encabezados)
 
     # Escribe los datos de los atletas en las filas
@@ -115,6 +121,9 @@ def exportar_excel(request, idPrueb):
             atleta.ano,
             atleta.categoria,
             atleta.club,
+            atleta.fechanac,
+            atleta.sexo,
+            atleta.centroescolar,
             atleta.prueba1,
             atleta.prueba2,
             atleta.prueba3,
@@ -123,10 +132,20 @@ def exportar_excel(request, idPrueb):
 
     # Crea la respuesta HTTP con el archivo Excel
     response = HttpResponse(content_type='application/ms-excel')
-    response['Content-Disposition'] = f'attachment; filename="atletas_{miRegi.nombre}.xlsx"'
+    response['Content-Disposition'] = f'attachment; filename="atletas_{miRegi.nomPrueba[:10]}.xlsx"'
 
     # Guarda el libro de Excel en la respuesta
     wb.save(response)
 
     return response
+
+
+# Vista para mostrar el pdf en el navegador sin descargar.
+def vista_pdf(request, pk):
+    
+    document = get_object_or_404(Documento, competicion=pk)
+    response = HttpResponse(document.archivo_pdf.read(), content_type='application/pdf')
+    response['Content-Disposition'] = f'attachment; filename="{document.archivo_pdf.name}"'
+    return response
+
     

@@ -19,6 +19,9 @@ from django.urls import path
 from . import views
 from .views import Competiciones, generar_excel
 
+from django.conf import settings
+from django.conf.urls.static import static
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('',Competiciones.as_view(), name='Competicion'),
@@ -27,5 +30,11 @@ urlpatterns = [
     path("login/",views.login_view, name='login'),
     path("generar_excel/",generar_excel.as_view(), name='generar_excel'),
     path("exportar_excel/<int:idPrueb>/",views.exportar_excel, name='exportar_excel'),
+    path('vistapdf/<int:pk>/',views.vista_pdf, name='vistapdf'),
     
 ]
+
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+

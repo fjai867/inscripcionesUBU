@@ -24,7 +24,7 @@
                 {%if regCompeticion.nombre %}
                     <input type="text" id="nom" name="nom" maxlength="50">
                 {%else%}
-                    <input type="text"  class="desabi" value="." disabled>
+                    <input type="text" id="nom" name="nom" class="desabi" value="." disabled>
                 {% endif %} 
             </div>
             <div class="input-group">
@@ -32,7 +32,7 @@
                 {%if regCompeticion.apellido1 %}
                 <input type="text" id="ape1" name="ape1" maxlength="50">
                 {%else%}
-                <input  class="desabi" type="text" value="." disabled>
+                <input  class="desabi" id="ape1" name="ape1" type="text" value="." disabled>
                 {% endif %}
             </div>
             <div class="input-group">
@@ -40,7 +40,7 @@
                 {%if regCompeticion.apellido2 %}
                 <input type="text" id="ape2" name="ape2" maxlength="50">
                 {%else%}
-                <input  class="desabi" type="text" value="." disabled>
+                <input  class="desabi" id="ape2" name="ape2" type="text" value="." disabled>
                 {% endif %}
             </div>
         </div>
@@ -50,7 +50,7 @@
                 {%if regCompeticion.ano %}
                 <input type="text" id="ano" name="ano" maxlength="4">
                 {%else%}
-                <input  class="desabi" type="text" value="." disabled>
+                <input  class="desabi" type="text" id="ano" name="ano" value="." disabled>
                 {% endif %} 
             </div>
             <div class="input-group">
@@ -64,7 +64,7 @@
                     <option value="5">sub-18</option>
                     <option value="6">sub-20</option>
                     <option value="7">sub-22</option>
-                    <option value="8">sub-14</option>
+                    <option value="8">sub-23</option>
 
                     <option value="9" selected>master</option>
                   </select>
@@ -78,17 +78,51 @@
                 {%if regCompeticion.club %}
                 <input type="text" id="clu" name="clu" maxlength="20" >
                 {%else%}
-                <input  class="desabi" type="text" value="." disabled>
+                <input  class="desabi" id="clu" name="clu" type="text" value="." disabled>
                 {% endif %}
             </div>
         </div>
+
+        <div class="row">
+            <div class="input-group">
+                <label for="fechanac">Fecha nacimiento:</label>
+                {%if regCompeticion.prueba1 %}
+                <input type="date" id="fechanac" name="fechanac" maxlength="10">
+                {%else%}
+                <input  class="desabi" id="fechanac" name="fechanac" type="date" value="01/01/1900" disabled>
+                {% endif %}
+            </div>
+            <div class="input-group">
+                <label for="sexo">Sexo:</label>
+                {%if regCompeticion.prueba2 %}
+                <select id="sexo" name="sexo">
+                    <option value="1">masculino</option>
+                    <option value="2">femenino</option>
+
+                    <option value="1" selected>masculino</option>
+                  </select>
+
+                {%else%}
+                <input class="desabi" type="text" value="." id="sexo" name="sexo" disabled>
+                {% endif %}
+            </div>
+            <div class="input-group">
+                <label for="cescolar">Centro escolar:</label>
+                {%if regCompeticion.prueba3 %}
+                <input type="text" id="cescolar" name="cescolar" maxlength="30" >
+                {%else%}
+                <input  class="desabi" id="cescolar" name="cescolar" type="text" value="." disabled>
+                {% endif %}
+            </div>
+        </div>
+
         <div class="row">
             <div class="input-group">
                 <label for="pr1">Prueba1:</label>
                 {%if regCompeticion.prueba1 %}
                 <input type="text" id="pr1" name="pr1" maxlength="30">
                 {%else%}
-                <input  class="desabi" type="text" value="." disabled>
+                <input  class="desabi" id="pr1" name="pr1" type="text" value="." disabled>
                 {% endif %}
             </div>
             <div class="input-group">
@@ -96,7 +130,7 @@
                 {%if regCompeticion.prueba2 %}
                 <input type="text" id="pr2" name="pr2" maxlength="30">
                 {%else%}
-                <input  class="desabi" type="text" value="." disabled>
+                <input  class="desabi" id="pr2" name="pr2" type="text" value="." disabled>
                 {% endif %}
             </div>
             <div class="input-group">
@@ -104,7 +138,7 @@
                 {%if regCompeticion.prueba3 %}
                 <input type="text" id="pr3" name="pr3" maxlength="30" >
                 {%else%}
-                <input  class="desabi" type="text" value="." disabled>
+                <input  class="desabi" id="pr3" name="pr3" type="text" value="." disabled>
                 {% endif %}
             </div>
         </div>
