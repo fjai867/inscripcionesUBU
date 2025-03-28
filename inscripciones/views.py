@@ -1,10 +1,11 @@
 from django.shortcuts import render, HttpResponse, redirect,HttpResponseRedirect,get_object_or_404
 from incripApp.models import Competicion, Atleta, Documento
-from django.views.generic import ListView
+from django.views.generic import ListView,DeleteView
 from django.contrib.auth import authenticate, login
 from django.urls import reverse_lazy
 from .forms import LoginForm
 from openpyxl import Workbook
+from django.http import FileResponse,Http404
 #importacion para que la vista solo se pueda entrar a traves de login
 from django.contrib.auth.mixins import LoginRequiredMixin
 from datetime import date
@@ -18,37 +19,39 @@ def vista(request, idPrueb):
     
     
     contexto={'regCompeticion':miRegi}
-    if request.method == 'POST':
-        if request.POST:
-            nombre = request.POST.get('nom')
-            ape1=request.POST.get('ape1')
-            ape2=request.POST.get('ape2')
-            ano=request.POST.get('ano')
-            club=request.POST.get('club')
-            categoria=request.POST.get('cat')
-            fechanac=request.POST.get('fechanac')
-            sexo=request.POST.get('sexo')
-            cescolar=request.POST.get('cescolar')
+    try:
+        if request.method == 'POST':
+            if request.POST:
+                nombre = request.POST.get('nom')
+                ape1=request.POST.get('ape1')
+                ape2=request.POST.get('ape2')
+                ano=request.POST.get('ano')
+                club=request.POST.get('club')
+                categoria=request.POST.get('cat')
+                fechanac=request.POST.get('fechanac')
+                sexo=request.POST.get('sexo')
+                cescolar=request.POST.get('cescolar')
 
-            pr1=request.POST.get('pr1')
-            pr2=request.POST.get('pr2')
-            pr3=request.POST.get('pr3')
+                pr1=request.POST.get('pr1')
+                pr2=request.POST.get('pr2')
+                pr3=request.POST.get('pr3')
+                
+                # Crea una instancia del modelo y guarda los datos
+                nuevo_registro = Atleta(competicion=miRegi,nom=nombre, ape1=ape1, ape2=ape2, ano=ano,categoria=categoria,club=club,fechanac=fechanac,sexo=sexo,centroescolar=cescolar,prueba1=pr1,prueba2=pr2,prueba3=pr3)
+                nuevo_registro.save()
+
+                # Redirigir a una página de éxito o mostrar un mensaje
+                return render(request, 'exito.html', {'mensaje': 'Datos guardados correctamente','mensaje2':'te has apuntado en: ','regnuevo': nuevo_registro})
+            else:
+                mensaje = "No se han enviado datos."
+                #return render(request, 'formulario.html', {'mensaje': mensaje})
             
-            # Crea una instancia del modelo y guarda los datos
-            nuevo_registro = Atleta(competicion=miRegi,nom=nombre, ape1=ape1, ape2=ape2, ano=ano,categoria=categoria,club=club,fechanac=fechanac,sexo=sexo,centroescolar=cescolar,prueba1=pr1,prueba2=pr2,prueba3=pr3)
-            nuevo_registro.save()
-
-            # Redirigir a una página de éxito o mostrar un mensaje
-            return render(request, 'exito.html', {'mensaje': 'Datos guardados correctamente'})
         else:
-            mensaje = "No se han enviado datos."
-            #return render(request, 'formulario.html', {'mensaje': mensaje})
-    else:
-        return render(request,"home2.html",contexto)
-    
-def inicio(request):
-    
-    return HttpResponse ("estoy hasta los huevos")
+            return render(request,"home2.html",contexto)
+    except:
+        return render(request, 'exito.html', {'mensaje': 'Ha ocurrdo algun problema no estas apuntado', 'mensaje2':'intentalo de nuevo'})
+
+        
     
     
 
@@ -59,6 +62,11 @@ class Competiciones(ListView):
     def get_queryset(self):
         queryset = super().get_queryset()
         return queryset.filter(fechafin__gte=date.today())
+    
+class borrarCom(DeleteView):
+    model = Competicion
+    template_name = 'borrarcom.html'
+    success_url = reverse_lazy('generar_excel')  # Reemplaza con la URL de la lista de modelos
     
     
 
@@ -111,6 +119,8 @@ def exportar_excel(request, idPrueb):
     ''
     'Fechanac','sexo','centro-escolar', 'Prueba 1', 'Prueba 2', 'Prueba 3']
     ws.append(encabezados)
+    categ=["sub-8","sub-10","sub-12","sub-14","sub-16","sub-18","sub-20","sub-23","senior","master"]
+    sex=["masculino","femenino"]
 
     # Escribe los datos de los atletas en las filas
     for atleta in atletas:
@@ -119,10 +129,10 @@ def exportar_excel(request, idPrueb):
             atleta.ape1,
             atleta.ape2,
             atleta.ano,
-            atleta.categoria,
+            categ[int(atleta.categoria)],
             atleta.club,
             atleta.fechanac,
-            atleta.sexo,
+            sex[int(atleta.sexo)],
             atleta.centroescolar,
             atleta.prueba1,
             atleta.prueba2,
@@ -132,7 +142,7 @@ def exportar_excel(request, idPrueb):
 
     # Crea la respuesta HTTP con el archivo Excel
     response = HttpResponse(content_type='application/ms-excel')
-    response['Content-Disposition'] = f'attachment; filename="atletas_{miRegi.nomPrueba[:10]}.xlsx"'
+    response['Content-Disposition'] = f'attachment; filename="atletas_{miRegi.nomPrueba[:15]}.xlsx"'
 
     # Guarda el libro de Excel en la respuesta
     wb.save(response)
@@ -145,7 +155,17 @@ def vista_pdf(request, pk):
     
     document = get_object_or_404(Documento, competicion=pk)
     response = HttpResponse(document.archivo_pdf.read(), content_type='application/pdf')
-    response['Content-Disposition'] = f'attachment; filename="{document.archivo_pdf.name}"'
+    response['Content-Disposition'] = f'inline; filename="{document.archivo_pdf.name}"'
     return response
 
     
+
+def ver_pdf(request, pk):
+    try:
+        documento = Documento.objects.get(competicion=pk)
+        if documento.archivo_pdf:
+            return FileResponse(open(documento.archivo_pdf.path, 'rb'), content_type='application/pdf')
+        else:
+            raise Http404("El documento no tiene un archivo PDF asociado.")
+    except Documento.DoesNotExist:
+        raise Http404("El documento no existe.")

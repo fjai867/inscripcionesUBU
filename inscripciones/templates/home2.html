@@ -57,14 +57,15 @@
                 <label for="cat">Categoría:</label>
                 {%if regCompeticion.categoria %}
                 <select name="cat" id="cat">
+                    <option value="0">sub-8</option>
                     <option value="1">sub-10</option>
                     <option value="2">sub-12</option>
                     <option value="3">sub-14</option>
                     <option value="4">sub-16</option>
                     <option value="5">sub-18</option>
                     <option value="6">sub-20</option>
-                    <option value="7">sub-22</option>
-                    <option value="8">sub-23</option>
+                    <option value="7">sub-23</option>
+                    <option value="8">senior</option>
 
                     <option value="9" selected>master</option>
                   </select>
@@ -74,11 +75,11 @@
                   
             </div>
             <div class="input-group">
-                <label for="clu">Club:</label>
+                <label for="club">Club:</label>
                 {%if regCompeticion.club %}
-                <input type="text" id="clu" name="clu" maxlength="20" >
+                <input type="text" id="club" name="club" maxlength="20">
                 {%else%}
-                <input  class="desabi" id="clu" name="clu" type="text" value="." disabled>
+                <input  class="desabi" id="club" name="club" type="text" value="." disabled>
                 {% endif %}
             </div>
         </div>
@@ -96,10 +97,8 @@
                 <label for="sexo">Sexo:</label>
                 {%if regCompeticion.prueba2 %}
                 <select id="sexo" name="sexo">
-                    <option value="1">masculino</option>
-                    <option value="2">femenino</option>
-
-                    <option value="1" selected>masculino</option>
+                    <option value="0">masculino</option>
+                    <option value="1" selected>femenino</option>
                   </select>
 
                 {%else%}

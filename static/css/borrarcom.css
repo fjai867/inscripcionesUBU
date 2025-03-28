@@ -1,0 +1,75 @@
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .contenedor {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 400px;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        p {
+            color: #555;
+            margin-bottom: 20px;
+        }
+
+        .botones {
+            display: flex;
+            justify-content: center;
+            gap: 10px; /* Espacio entre botones */
+            margin-top: 20px; /* Margen sobre los botones */
+        }
+
+        button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            min-width: 100px; /* Ancho mínimo para los botones */
+        }
+
+        .confirmar {
+            background-color: #d9534f; /* Rojo */
+            color: white;
+        }
+
+        .confirmar:hover {
+            background-color: #c9302c; /* Rojo más oscuro al pasar el ratón */
+        }
+
+        .cancelar {
+            background-color: #ccc; /* Gris */
+            color: #333;
+        }
+
+        .cancelar:hover {
+            background-color: #b0b0b0; /* Gris más claro al pasar el ratón */
+        }
+
+        /* Estilos adicionales para mejorar la apariencia */
+        .contenedor {
+            border: 1px solid #ddd; /* Añade un borde */
+        }
+        h1 {
+            font-size: 24px; /* Tamaño de fuente más grande para el título */
+            margin-bottom: 15px;
+        }
+        p {
+            font-size: 18px; /* Tamaño de fuente más grande para el texto */
+            line-height: 1.5; /* Mejora la legibilidad del texto */
+        }

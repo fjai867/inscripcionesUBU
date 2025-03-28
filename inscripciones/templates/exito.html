@@ -3,13 +3,18 @@
 {%block content %} 
 <html>
 <head>
-    
-     
+    {%load static%}
+    <link rel="stylesheet" href="{% static 'css/exito.css' %}"> 
     <title>Exito</title>
 </head>
 <body>
+    <div class="contenedor">
     
-    <h1 text-align="center">{{mensaje}}</h1>
+        <h1 text-align="center">{{mensaje}}</h1>
+        <h1>{{regnuevo.nom}} {{regnuevo.ape1}}</h1>
+        <h1>{{mensaje2}} {{regnuevo.prueba1}} </h1>
+
+    </div>
     
 </body>
 </html>

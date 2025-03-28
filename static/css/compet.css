@@ -32,7 +32,7 @@ table {
   }
   
   /* Estilo para el botón */
-  a {
+  a,button {
     padding: 8px 12px;
     background-color: #4CAF50;
     color: white;
@@ -46,7 +46,7 @@ table {
     background-color: #3e8e41;
   }
   
-  /* Estilos responsivos */
+  /* Estilos responsivs */
   @media screen and (max-width: 768px) {
     table, thead, tbody, th, td, tr {
       display: block;
@@ -79,3 +79,5 @@ table {
       font-weight: 600;
     }
   }
+
+  
