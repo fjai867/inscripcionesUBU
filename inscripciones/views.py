@@ -12,6 +12,9 @@ from datetime import date
 
 
 
+
+
+
 def vista(request, idPrueb):
     
     miRegi=Competicion.objects.get(idPrueba=idPrueb)  
@@ -21,6 +24,8 @@ def vista(request, idPrueb):
     contexto={'regCompeticion':miRegi}
     try:
         if request.method == 'POST':
+            
+            errores={}
             if request.POST:
                 nombre = request.POST.get('nom')
                 ape1=request.POST.get('ape1')
@@ -35,24 +40,36 @@ def vista(request, idPrueb):
                 pr1=request.POST.get('pr1')
                 pr2=request.POST.get('pr2')
                 pr3=request.POST.get('pr3')
-                
-                # Crea una instancia del modelo y guarda los datos
-                nuevo_registro = Atleta(competicion=miRegi,nom=nombre, ape1=ape1, ape2=ape2, ano=ano,categoria=categoria,club=club,fechanac=fechanac,sexo=sexo,centroescolar=cescolar,prueba1=pr1,prueba2=pr2,prueba3=pr3)
-                nuevo_registro.save()
+
+                #errores
+                if not nombre:
+                    errores['nom'] = "El nombre es obligatorio."
+                if not ape1:
+                    errores['ape1'] = "El primer apellido es obligatorio."
+                if not ape2:
+                    errores['ape2'] = "El segundo apellido es obligatorio."
+                if not pr1:
+                    errores['pr1'] = "Debes porner al menos una prueba."
+
+                if errores:
+                    return render(request, 'exito.html', {'mensaje':'Hay algún error en el formlario','erroress': errores.values()}) # Pasar errores y datos para repopular el formulario
+                else:    
+                    # Crea una instancia del modelo y guarda los datos
+                    nuevo_registro = Atleta(competicion=miRegi,nom=nombre, ape1=ape1, ape2=ape2, ano=ano,categoria=categoria,club=club,fechanac=fechanac,sexo=sexo,centroescolar=cescolar,prueba1=pr1,prueba2=pr2,prueba3=pr3)
+                    nuevo_registro.save()
 
                 # Redirigir a una página de éxito o mostrar un mensaje
                 return render(request, 'exito.html', {'mensaje': 'Datos guardados correctamente','mensaje2':'te has apuntado en: ','regnuevo': nuevo_registro})
-            else:
-                mensaje = "No se han enviado datos."
-                #return render(request, 'formulario.html', {'mensaje': mensaje})
-            
+                            
         else:
             return render(request,"home2.html",contexto)
     except:
         return render(request, 'exito.html', {'mensaje': 'Ha ocurrdo algun problema no estas apuntado', 'mensaje2':'intentalo de nuevo'})
 
         
-    
+def portada(request):
+    return render(request,"home.html")
+
     
 
 class Competiciones(ListView):
@@ -166,6 +183,7 @@ def ver_pdf(request, pk):
         if documento.archivo_pdf:
             return FileResponse(open(documento.archivo_pdf.path, 'rb'), content_type='application/pdf')
         else:
-            raise Http404("El documento no tiene un archivo PDF asociado.")
+            return render(request, 'falloPDF.html', {'mensaje': 'El documento no tiene archivo PDF asociado'})
     except Documento.DoesNotExist:
-        raise Http404("El documento no existe.")
+        #raise Http404("Fallo. Algo no ha salido bien. Intentelo de nuevo")
+        return render(request, 'falloPDF.html', {'mensaje': 'El documento no tiene archivo PDF asociado'})

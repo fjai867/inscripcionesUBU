@@ -1,0 +1,9 @@
+
+
+.images-container {
+    display: flex;
+    align-items: center;
+}
+.clububu-image{
+    margin-right: 100px; 
+}

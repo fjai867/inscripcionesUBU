@@ -1,0 +1,20 @@
+{% extends "inicio.html" %}
+<!DOCTYPE html>
+{%block content %} 
+<html lang="en">
+<head>
+    {%load static%}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/home.css' %}">
+    <title>Inscripciones UBU</title>
+</head>
+<body>
+    
+    <div class="images-container">
+        <img src="{% static 'images/club.jpg' %}" alt="Club UBU" class="clububu-image">
+        <img src="{% static 'images/patrocinadores.jpg' %}" alt="Patrocinadores">
+    </div>
+</body>
+</html>
+{% endblock %}
