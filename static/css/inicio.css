@@ -49,6 +49,8 @@ footer {
     height: auto; /* Permite que el pie de página ajuste su altura según el contenido */
 }
 
+
+
 footer nav ul {
     list-style: none;
     margin: 0;
@@ -58,6 +60,10 @@ footer nav ul {
 
 footer nav li {
     margin-left: 20px;
+}
+
+footer nav{
+    margin: 0px;
 }
 
 h1 {

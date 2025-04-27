@@ -26,10 +26,10 @@
                 <td class="titulo-tabla">{{ Competicion.nomPrueba }}</td>
                 <td class="fecha-tabla">{{ Competicion.fechafin|date:"d/m/Y" }}</td>
                 <td>
-                    <a href="{% url 'vista' Competicion.idPrueba %}">Inscribirse</a>
+                    <a class="boton" href="{% url 'vista' Competicion.idPrueba %}">Inscribirse</a>
                 </td>
                 <td>
-                    <a href="{% url 'verpdf' Competicion.idPrueba %}" target="_blank">Ver pruebas</a>
+                    <a class="boton" href="{% url 'verpdf' Competicion.idPrueba %}" target="_blank">Ver pruebas</a>
                 </td>
 
             </tr>

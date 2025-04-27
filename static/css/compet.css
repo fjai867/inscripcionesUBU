@@ -32,7 +32,7 @@ table {
   }
   
   /* Estilo para el botón */
-  a,button {
+  .boton {
     padding: 8px 12px;
     background-color: #4CAF50;
     color: white;
@@ -42,7 +42,7 @@ table {
     min-width: 100px; /* Asegura que el botón tenga suficiente espacio */
   }
   
-  a:hover {
+  .boton:hover {
     background-color: #3e8e41;
   }
   

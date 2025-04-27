@@ -28,10 +28,10 @@
                 <td class="titulo-tabla">{{ Competicion.nomPrueba }}</td>
                 <td class="fecha-tabla">{{ Competicion.fechafin|date:"d/m/Y"  }}</td>
                 <td>
-                    <a href="{% url 'exportar_excel' Competicion.idPrueba %}">Genera excel</a>
+                    <a class="boton" href="{% url 'exportar_excel' Competicion.idPrueba %}">Genera excel</a>
                 <td>
                     
-                    <a href="{% url 'borrarCom' Competicion.idPrueba %}" target="_blank">Borrar competicion</a>
+                    <a class="boton" href="{% url 'borrarCom' Competicion.idPrueba %}" target="_blank">Borrar competicion</a>
                 </td>
                 </td>
             </tr>

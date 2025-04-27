@@ -13,7 +13,13 @@
             <ul>
                 <li><a href="{% url 'portada' %}">Inicio</a></li>
                 <li><a href="{% url 'Competicion' %}">Competiciones</a></li>
-                <li><a href="{% url 'login' %}">Login</a></li>
+                {% if cabecera_usuario %}
+                    <span>Bienvenido, {{ cabecera_usuario }}</span>
+                    <li><a href="{% url 'logout' %}">Logout</a></li> {# Asumiendo que tienes una URL de logout #}
+                {% else %}
+                    <li><a href="{% url 'login' %}">Login</a></li>
+                {% endif %}
+                
             </ul>
         </nav>
     </header>
@@ -29,8 +35,10 @@
         <img src="{% static 'images/logo.jpg' %}" alt="Logo" class="logo"> {# Reemplaza 'images/logo.png' con la ruta a tu logo #}
         <nav>
             <ul>
-                <li><a href="https://atletismocamposdecastilla.com/aviso-legal/">Aviso Legal</a></li>
-                <li><a href="https://atletismocamposdecastilla.com/politica-de-privacidad/">Política de Privacidad</a></li>
+                <li><a href="{% url 'aviso' %}"target="_blank" >Aviso Legal</a></li>
+                <li><a href="{% url 'cooki' %}" target="_blank">Política de cookies</a></li>
+                <li><a href="{% url 'priva' %}" target="_blank">Política de privacidad</a></li>
+                <li><a href="{% url 'condi' %}" target="_blank">Terminos y condiciones</a></li>
             </ul>
         </nav>
     </footer>

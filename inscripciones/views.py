@@ -1,7 +1,7 @@
 from django.shortcuts import render, HttpResponse, redirect,HttpResponseRedirect,get_object_or_404
 from incripApp.models import Competicion, Atleta, Documento
 from django.views.generic import ListView,DeleteView
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.urls import reverse_lazy
 from .forms import LoginForm
 from openpyxl import Workbook
@@ -9,6 +9,11 @@ from django.http import FileResponse,Http404
 #importacion para que la vista solo se pueda entrar a traves de login
 from django.contrib.auth.mixins import LoginRequiredMixin
 from datetime import date
+
+import os
+from django.conf import settings
+
+
 
 
 
@@ -70,6 +75,8 @@ def vista(request, idPrueb):
 def portada(request):
     return render(request,"home.html")
 
+
+
     
 
 class Competiciones(ListView):
@@ -97,6 +104,7 @@ def login_view(request):
             user = authenticate(username=username, password=password)
             if user is not None:
                 login(request, user)
+                request.session['username'] = "Administrador"
                  #envia a la lista de competicionees para exporta excel
                 return HttpResponseRedirect(reverse_lazy('generar_excel'))
             else:
@@ -187,3 +195,74 @@ def ver_pdf(request, pk):
     except Documento.DoesNotExist:
         #raise Http404("Fallo. Algo no ha salido bien. Intentelo de nuevo")
         return render(request, 'falloPDF.html', {'mensaje': 'El documento no tiene archivo PDF asociado'})
+    
+
+
+def Aviso_Legal(request):
+    """
+    Vista para mostrar el archivo Aviso_Legal.pdf.
+    """
+    ruta_archivo = os.path.join(settings.MEDIA_ROOT, 'pdf', 'Aviso_Legal.pdf')
+
+    try:
+        with open(ruta_archivo, 'rb') as pdf:
+            response = HttpResponse(pdf.read(), content_type='application/pdf')
+            response['Content-Disposition'] = 'inline;filename="Aviso_Legal.pdf"'
+            return response
+    except FileNotFoundError:
+        return HttpResponse("El archivo PDF no se encontró.", status=404)
+    
+def condiciones_pdf(request):
+    """
+    Vista para mostrar el archivo Terminos_y_condiciones.pdf.
+    """
+    ruta_archivo = os.path.join(settings.MEDIA_ROOT, 'pdf', 'Terminos_y_condiciones.pdf')
+
+    try:
+        with open(ruta_archivo, 'rb') as pdf:
+            response = HttpResponse(pdf.read(), content_type='application/pdf')
+            response['Content-Disposition'] = 'inline;filename="Terminos_y_condiciones.pdf"'
+            return response
+    except FileNotFoundError:
+        return HttpResponse("El archivo PDF no se encontró.", status=404)
+    
+
+def privacidad_pdf(request):
+    """
+    Vista para mostrar el archivo Politica_de_privacidad.pdf.
+    """
+    ruta_archivo = os.path.join(settings.MEDIA_ROOT, 'pdf', 'Politica_de_privacidad.pdf')
+
+    try:
+        with open(ruta_archivo, 'rb') as pdf:
+            response = HttpResponse(pdf.read(), content_type='application/pdf')
+            response['Content-Disposition'] = 'inline;filename="Politica_de_privacidad.pdf"'
+            return response
+    except FileNotFoundError:
+        return HttpResponse("El archivo PDF no se encontró.", status=404)
+    
+def politica_cookies_pdf(request):
+    """
+    Vista para mostrar el archivo Politica_de_Cookies.pdf.
+    """
+    ruta_archivo = os.path.join(settings.MEDIA_ROOT, 'pdf', 'Politica_de_Cookies.pdf')
+
+    try:
+        with open(ruta_archivo, 'rb') as pdf:
+            response = HttpResponse(pdf.read(), content_type='application/pdf')
+            response['Content-Disposition'] = 'inline;filename="Politica_de_Cookies.pdf"'
+            return response
+    except FileNotFoundError:
+        return HttpResponse("El archivo PDF no se encontró.", status=404)
+    
+
+
+    
+def logout_view(request):
+    """
+    Vista para cerrar la sesión del usuario.
+    """
+    logout(request)
+    return redirect('portada')  # Redirige a la página de inicio
+    
+    

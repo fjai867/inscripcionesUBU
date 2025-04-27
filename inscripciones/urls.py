@@ -32,6 +32,11 @@ urlpatterns = [
     path("generar_excel/",generar_excel.as_view(), name='generar_excel'),
     path("exportar_excel/<int:idPrueb>/",views.exportar_excel, name='exportar_excel'),
     path('verpdf/<int:pk>/',views.ver_pdf, name='verpdf'),
+    path('aviso/',views.Aviso_Legal, name='aviso'),
+    path('cooki/',views.politica_cookies_pdf, name='cooki'),
+    path('priva/',views.privacidad_pdf, name='priva'),
+    path('condi/',views.condiciones_pdf, name='condi'),
+    path('logout/', views.logout_view, name='logout'),
     
 ]
 
