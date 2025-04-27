@@ -14,7 +14,7 @@
                 <li><a href="{% url 'portada' %}">Inicio</a></li>
                 <li><a href="{% url 'Competicion' %}">Competiciones</a></li>
                 {% if cabecera_usuario %}
-                    <span>Bienvenido, {{ cabecera_usuario }}</span>
+                    <span style="color: red;"> &nbsp; &nbsp; ** Bienvenido, {{ cabecera_usuario }} ** </span>
                     <li><a href="{% url 'logout' %}">Logout</a></li> {# Asumiendo que tienes una URL de logout #}
                 {% else %}
                     <li><a href="{% url 'login' %}">Login</a></li>

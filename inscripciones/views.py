@@ -46,7 +46,7 @@ def vista(request, idPrueb):
                 pr2=request.POST.get('pr2')
                 pr3=request.POST.get('pr3')
 
-                #errores
+                #errores de los campos fijos siempre activos
                 if not nombre:
                     errores['nom'] = "El nombre es obligatorio."
                 if not ape1:
@@ -55,6 +55,31 @@ def vista(request, idPrueb):
                     errores['ape2'] = "El segundo apellido es obligatorio."
                 if not pr1:
                     errores['pr1'] = "Debes porner al menos una prueba."
+
+                #errores de los campos que pueden estar habilitados
+                if miRegi.ano:
+                    if not ano:
+                        errores['ano'] = "Debes porner el año."
+
+                if miRegi.club:
+                    if not club:
+                        errores['club'] = "Debes porner el club."
+
+                if miRegi.fechanac:
+                    if not fechanac:
+                        errores['fecha'] = "Debes porner la fecha de nacimiento."
+
+                if miRegi.centroescolar==True:
+                    if not cescolar:
+                        errores['cescol'] = "Debes porner el centro escolar." 
+
+                if miRegi.prueba2:
+                    if not pr2:
+                        errores['pr2'] = "Pon NO si no te apuntas a la 2ª prueba" 
+
+                if miRegi.prueba3:
+                    if not pr3:
+                        errores['pr3'] = "Pon NO si no te apuntas a la 3ª prueba" 
 
                 if errores:
                     return render(request, 'exito.html', {'mensaje':'Hay algún error en el formlario','erroress': errores.values()}) # Pasar errores y datos para repopular el formulario
@@ -123,47 +148,64 @@ class generar_excel(LoginRequiredMixin, ListView):
 
 
 
-
 def exportar_excel(request, idPrueb):
-    
-
     # Filtra los atletas por la competición
     atletas = Atleta.objects.filter(competicion=idPrueb)
 
     # obtenemos el registro idPureba de competicion
-    miRegi=Competicion.objects.get(idPrueba=idPrueb)
+    miRegi = Competicion.objects.get(idPrueba=idPrueb)
+
+    # Lista de todos los campos posibles (debe coincidir con los datos que quieres exportar)
+    all_fields = ['nom', 'ape1', 'ape2', 'ano', 'categoria', 'club', 'fechanac', 'sexo', 'centroescolar', 'prueba1', 'prueba2', 'prueba3']
+    header_map = {
+        'nom': 'Nombre',
+        'ape1': 'Apellido1',
+        'ape2': 'Apellido2',
+        'ano': 'Año',
+        'categoria': 'Categoría',
+        'club': 'Club',
+        'fechanac': 'Fechanac',
+        'sexo': 'sexo',
+        'centroescolar': 'centro-escolar',
+        'prueba1': 'Prueba 1',
+        'prueba2': 'Prueba 2',
+        'prueba3': 'Prueba 3',
+    }
+    categ = ["sub-8", "sub-10", "sub-12", "sub-14", "sub-16", "sub-18", "sub-20", "sub-23", "senior", "master"]
+    sex = ["masculino", "femenino"]
+
+    # Identificar campos con todos los valores nulos
+    null_fields = set()
+    for field_name in all_fields:
+        all_null = True
+        for atleta in atletas:
+            if getattr(atleta, field_name) is not None:
+                all_null = False
+                break
+        if all_null and atletas.exists():  # Solo considerar si hay atletas
+            null_fields.add(field_name)
+
+    # Crear encabezados dinámicamente
+    encabezados = [header_map[field] for field in all_fields if field not in null_fields]
 
     # Crea un nuevo libro de Excel y una hoja
     wb = Workbook()
     ws = wb.active
-
-     
-
-    # Escribe los encabezados de las columnas
-    encabezados = ['Nombre', 'Apellido1', 'Apellido2', 'Año', 'Categoría', 'Club',''
-    ''
-    'Fechanac','sexo','centro-escolar', 'Prueba 1', 'Prueba 2', 'Prueba 3']
     ws.append(encabezados)
-    categ=["sub-8","sub-10","sub-12","sub-14","sub-16","sub-18","sub-20","sub-23","senior","master"]
-    sex=["masculino","femenino"]
 
     # Escribe los datos de los atletas en las filas
     for atleta in atletas:
-        fila = [
-            atleta.nom,
-            atleta.ape1,
-            atleta.ape2,
-            atleta.ano,
-            categ[int(atleta.categoria)],
-            atleta.club,
-            atleta.fechanac,
-            sex[int(atleta.sexo)],
-            atleta.centroescolar,
-            atleta.prueba1,
-            atleta.prueba2,
-            atleta.prueba3,
-        ]
-        ws.append(fila)
+        fila_data = []
+        for field_name in all_fields:
+            if field_name not in null_fields:
+                value = getattr(atleta, field_name)
+                if field_name == 'categoria' and value is not None:
+                    fila_data.append(categ[int(value)])
+                elif field_name == 'sexo' and value is not None:
+                    fila_data.append(sex[int(value)])
+                else:
+                    fila_data.append(value)
+        ws.append(fila_data)
 
     # Crea la respuesta HTTP con el archivo Excel
     response = HttpResponse(content_type='application/ms-excel')
@@ -174,14 +216,6 @@ def exportar_excel(request, idPrueb):
 
     return response
 
-
-# Vista para mostrar el pdf en el navegador sin descargar.
-def vista_pdf(request, pk):
-    
-    document = get_object_or_404(Documento, competicion=pk)
-    response = HttpResponse(document.archivo_pdf.read(), content_type='application/pdf')
-    response['Content-Disposition'] = f'inline; filename="{document.archivo_pdf.name}"'
-    return response
 
     
 

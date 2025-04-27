@@ -107,7 +107,7 @@
             </div>
             <div class="input-group">
                 <label for="cescolar">Centro escolar:</label>
-                {%if regCompeticion.prueba3 %}
+                {%if regCompeticion.centroescolar %}
                 <input type="text" id="cescolar" name="cescolar" maxlength="30" >
                 {%else%}
                 <input  class="desabi" id="cescolar" name="cescolar" type="text" value="." disabled>
@@ -127,7 +127,7 @@
             <div class="input-group">
                 <label for="pr2">Prueba2:</label>
                 {%if regCompeticion.prueba2 %}
-                <input type="text" id="pr2" name="pr2" maxlength="30">
+                <input type="text" id="pr2" name="pr2" maxlength="30" title="Por favor si no te apuntas a una segunda prueba pon 'NO'">
                 {%else%}
                 <input  class="desabi" id="pr2" name="pr2" type="text" value="." disabled>
                 {% endif %}
@@ -135,13 +135,14 @@
             <div class="input-group">
                 <label for="pr3">Prueba3:</label>
                 {%if regCompeticion.prueba3 %}
-                <input type="text" id="pr3" name="pr3" maxlength="30" >
+                <input type="text" id="pr3" name="pr3" maxlength="30" title="Por favor si no te apuntas a una segunda prueba pon 'NO'">
                 {%else%}
                 <input  class="desabi" id="pr3" name="pr3" type="text" value="." disabled>
                 {% endif %}
             </div>
         </div>
             <button type="submit">Enviar</button>
+            <h5>Es obligatorio rellenar todos los campos que estan habilitados</h5>
         </form>
 
     </div>
