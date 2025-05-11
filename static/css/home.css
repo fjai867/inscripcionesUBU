@@ -1,11 +1,25 @@
-
-
 .images-container {
     display: flex;
     align-items: center;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    padding: 20px;
 }
-.clububu-image{
-    margin-left: 75px; 
-    margin-right: 25px;
+
+.clububu-image {
+    max-width: 100%;
+    height: auto;
+    margin: 0;
+}
+
+@media screen and (max-width: 768px) {
+    .images-container {
+        flex-direction: column;
+    }
+    
+    .clububu-image {
+        margin: 10px 0;
+    }
 }
 

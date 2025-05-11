@@ -5,79 +5,81 @@ table {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
     overflow: hidden;
-  }
-  
-  th, td {
-    padding: 12px 15px;
+    margin: 1rem 0;
+}
+
+th, td {
+    padding: 1rem;
     text-align: left;
     border-bottom: 1px solid #ddd;
-  }
-  
-  th {
+}
+
+th {
     background-color: #f2f2f2;
     font-weight: 600;
-  }
-  
-  /* Estilo para el título */
-  .titulo-tabla {
-    max-width: 300px; /* Ajusta este valor según sea necesario */
+}
+
+/* Estilo para el título */
+.titulo-tabla {
+    max-width: 300px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-  }
-  
-  /* Estilo para la fecha */
-  .fecha-tabla {
-    min-width: 120px; /* Asegura que la fecha tenga suficiente espacio */
-  }
-  
-  /* Estilo para el botón */
-  .boton {
-    padding: 8px 12px;
+}
+
+/* Estilo para la fecha */
+.fecha-tabla {
+    min-width: 120px;
+}
+
+/* Estilo para el botón */
+.boton {
+    padding: 0.8rem 1.2rem;
     background-color: #4CAF50;
     color: white;
     border: none;
     border-radius: 4px;
     cursor: pointer;
-    min-width: 100px; /* Asegura que el botón tenga suficiente espacio */
-  }
-  
-  .boton:hover {
+    min-width: 100px;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+}
+
+.boton:hover {
     background-color: #3e8e41;
-  }
-  
-  /* Estilos responsivs */
-  @media screen and (max-width: 768px) {
-    table, thead, tbody, th, td, tr {
-      display: block;
+}
+
+/* Estilos responsivs */
+@media screen and (max-width: 768px) {
+    table {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
     }
-  
-    thead tr {
-      position: absolute;
-      top: -9999px;
-      left: -9999px;
+
+    th, td {
+        padding: 0.8rem;
+        font-size: 0.9rem;
     }
-  
-    tr { border: 1px solid #ccc; }
-  
-    td {
-      border: none;
-      border-bottom: 1px solid #eee;
-      position: relative;
-      padding-left: 50%;
-      text-align: left;
+
+    .boton {
+        padding: 0.6rem 1rem;
+        font-size: 0.9rem;
+        min-width: 80px;
     }
-  
-    td:before {
-      position: absolute;
-      top: 6px;
-      left: 6px;
-      width: 45%;
-      padding-right: 10px;
-      white-space: nowrap;
-      content: attr(data-label);
-      font-weight: 600;
+}
+
+@media screen and (max-width: 480px) {
+    th, td {
+        padding: 0.6rem;
+        font-size: 0.8rem;
     }
-  }
+
+    .boton {
+        padding: 0.5rem 0.8rem;
+        font-size: 0.8rem;
+        min-width: 70px;
+    }
+}
 
   
