@@ -37,7 +37,7 @@ urlpatterns = [
     path('priva/',views.privacidad_pdf, name='priva'),
     path('condi/',views.condiciones_pdf, name='condi'),
     path('logout/', views.logout_view, name='logout'),
-    
+    path('verins/<int:pk>/',views.ver_inscritos, name='verins'),
 ]
 
 

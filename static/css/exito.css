@@ -6,6 +6,8 @@ body {
     align-items: center;
     min-height: 100vh;
     font-size: 16px;
+    width: 100%;
+    position: relative;
 }
 
 .contenedor {
@@ -16,7 +18,11 @@ body {
     text-align: center;
     width: 90%;
     max-width: 400px;
-    margin: 1rem;
+    margin: 1rem auto;
+    position: absolute;
+    right: 0;
+    left: 0;
+    
 }
 
 h1 {

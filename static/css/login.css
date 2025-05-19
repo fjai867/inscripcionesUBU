@@ -6,11 +6,12 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+    background-color: #ffffff;
 }
 
 .login-container {
     text-align: center;
-    margin: 1rem;
+    margin: 1rem auto;
     min-height: 300px;
     background-color: #f4f6f7;
     padding: 2rem;
@@ -18,6 +19,9 @@ body {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     width: 90%;
     max-width: 400px;
+    position: relative;
+    left: 0;
+    right: 0;
 }
 
 .login-container h1 {

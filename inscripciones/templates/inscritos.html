@@ -1,0 +1,46 @@
+{% extends "inicio.html" %}
+<!DOCTYPE html>
+{%block content %} 
+<html>
+<head>
+    {%load static%}
+    <link rel="stylesheet" href="{% static 'css/inscritos.css' %}"> 
+    
+    <title>Lista de Inscritos</title>
+    
+</head>
+<body>
+    <h1>Lista de Inscritos</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>prueba1</th>
+                <th>Prueba2</th>
+                <th>Prueba3</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% if atletas %}
+                {% for atleta in atletas %}
+                    <tr>
+                        <td class="Nombre">{{ atleta.nom}}</td>
+                        <td class="Apellido">{{ atleta.ape1}}</td>
+                        <td class="prueba1">{{ atleta.prueba1}}</td>
+                        <td class="prueba2">{{ atleta.prueba2}}</td>
+                        <td class="prueba3">{{ atleta.prueba3}}</td>
+                    </tr>
+                {% endfor %}
+            {%else%}
+                <h1>No hay ningun atleta inscrito</h1>
+            {% endif %}    
+        </tbody>
+    </table>
+    
+      
+         
+</body>
+</html>
+{% endblock %}

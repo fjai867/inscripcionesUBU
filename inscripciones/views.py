@@ -298,5 +298,13 @@ def logout_view(request):
     """
     logout(request)
     return redirect('portada')  # Redirige a la página de inicio
+
+
+def ver_inscritos(request, pk):
+    """
+    Vista para mostrar los datos de los atletas inscritos en una competición.
+    """
+    atletas = Atleta.objects.filter(competicion=pk)
+    return render(request, 'inscritos.html', {'atletas': atletas})
     
     
